@@ -1,33 +1,61 @@
-const mongoose=require("mongoose");
-const loggers =new mongoose.Schema({
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
+const loggersSchema = new mongoose.Schema({
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
+        type: String
+    },
+    age: {
+        type: Number,
+        required: true
+    },
+    contact: {
+        type: Number,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+});
 
-firstname:{type: String ,
-          require:true},
+loggersSchema.pre('save', async function (next) {
+    const logger = this;
 
-  lastname:{ type:String },
+    if (!logger.isModified('password')) return next();
 
-age:{type: Number ,
-require:true},
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(logger.password, salt);
+        logger.password = hashedPassword;
+        next();
+    } catch (err) {
+        console.error('Error in hashing password:', err);
+        next(err);
+    }
+});
 
-contact:{ type:Number,
-require:true},
+loggersSchema.methods.comparePassword = async function (candidatePassword) {
+    try {
+        const isMatch = await bcrypt.compare(candidatePassword, this.password);
+        return isMatch;
+    } catch (err) {
+        console.error('Error in comparing password:', err);
+        throw err;
+    }
+};
 
-email:{type: String ,
-           require:true,
-       unique:true},
-
-city:{type: String ,
-                   require:true},
-  password:{type: Number,
-                require:true,
-         }
-
-
-
-
-
-
-  
-})
-module.exports=mongoose.model('loggers',loggers);
+module.exports = mongoose.model('Loggers', loggersSchema);

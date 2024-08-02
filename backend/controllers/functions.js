@@ -71,9 +71,22 @@ res.json("enter true details");
   }
 }
 
+
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
+
+function Logout(req, res) {
+  
+  res.redirect('/login');
+}
+
 module.exports={
 
 
-  Homepage,Aboutus,Loginpage,Signuppage,Contactsave,Contactfailed,Loggersave,Getmygear,Getmyachi
+  Homepage,Aboutus,Loginpage,Signuppage,Contactsave,Contactfailed,Loggersave,Getmygear,Getmyachi,isAuthenticated,Logout
   
 }
