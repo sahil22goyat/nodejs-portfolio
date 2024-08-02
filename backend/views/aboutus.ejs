@@ -1,0 +1,54 @@
+<html>
+  <head>
+    
+    <style>
+      body {
+        background-color: #0e1630;
+      }
+      .about-section{
+        color:white;
+        margin-left:500px;
+        
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("header")-%>
+    <div class="about-section">
+      <h1>About Us Page</h1>
+      <p>Some text about who we are and what we do.</p>
+      <p>Resize the browser window to see that this page is responsive by the way.</p>
+    </div>
+
+    <h2 style="text-align:center;color:white;">Our Team</h2>
+    <div class="row">
+    
+      <div class="column" style=" background-color: #0e1630;">
+        <div class="card" style=" background-color: #0e1630;">
+          <img src="/images.jpg" alt="Mike" style=" width:1320px ;margin-left:100px;">
+          <div class="container"style="background-color: #0e1630;color:white;">
+            <h2>Mike Ross</h2>
+            <p class="title">Art Director</p>
+            <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+            <p>mike@example.com</p>
+            <p><button class="button">Contact</button></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column" style=" background-color: #0e1630;">
+        <div class="card" style=" background-color: #0e1630;">
+          <img src="/office.jpg" alt="John" style="width:1320px;margin-left:100px;">
+          <div class="container" style="background-color: #0e1630;color:white;">
+            <h2>John Doe</h2>
+            <p class="title">Designer</p>
+            <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+            <p>john@example.com</p>
+            <p><button class="button">Contact</button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+      <%- include("footer")-%>
+  </body>
+</html>
